@@ -21,4 +21,4 @@ jobs:
       - name: Build
         run: dotnet build ./tests/CodeWars.Test/CodeWars.Test.csproj --no-restore  
       - name: Test
-        run: dotnet test ./tests/CodeWars.Test/CodeWars.Test.csproj --no-build --verbosity normal  
+        run: dotnet test ./tests/CodeWars.Test/CodeWars.Test.csproj --no-build --verbosity normal
