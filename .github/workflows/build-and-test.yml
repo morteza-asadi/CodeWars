@@ -1,0 +1,33 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: |
+          dotnet restore ./src/CodeWars/CodeWars.csproj
+          dotnet restore ./tests/CodeWars.Tests/CodeWars.Tests.csproj
+
+      - name: Build main project
+        run: dotnet build ./src/CodeWars/CodeWars.csproj --no-restore
+
+      - name: Build test project
+        run: dotnet build ./tests/CodeWars.Tests/CodeWars.Tests.csproj --no-restore
+
+      - name: Run tests
+        run: dotnet test ./tests/CodeWars.Tests/CodeWars.Tests.csproj --no-build --verbosity normal
